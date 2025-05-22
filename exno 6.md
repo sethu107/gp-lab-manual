@@ -1,26 +1,58 @@
-EXP-06: Implement the AI random movement.
-Aim:
-Implement the AI random movement.
-Algorithm:
-Step:01 Create a Character Blueprint.
-Step:02 Create a Blackboard.
-Step:03 Open the Behavior Tree editor.
-Step:04 Create Behavior Tree nodes for the following,
- "Selector" node: Controls the execution of child nodes.
- "Service" node: Monitors and updates values in the Blackboard.
- "Sequence" node: Executes child nodes in sequential order.
- "Random" decorator: Randomly selects a child node to execute.
- "Move To" task: Moves the AI character to a specified location.
-Step:05 Set up the Blackboard with vector key and bool keys and save it.
-Step:06 Set up the AI character Blueprint with the help of AI controller component.
-Step:07 Set the AI controller and behavior treeiIn the Possess node, select the AICharacter
-Blueprint you created and drag off the AICharacter reference and search for “Use Blackboard”
-Step:08 Set up the NavMesh and boundaries, we can adjust the size and position to cover the
-desired play area.
+# EX 6 AI Random Roam - Unreal Engine
 
-Output:
+## Aim
+To implement an AI character in Unreal Engine that roams randomly within a defined area using Behavior Trees and Navigation Mesh.
 
-//paste your output screenshot here
+## Procedure
 
-Result:
-Thus, the AI concept to the actor for a random movement is imple
+1. *Navigation Setup*
+   - Add a NavMeshBoundsVolume to your level and scale it to cover the roamable area.
+   - Ensure navigation is built (press *P* to visualize the navmesh).
+
+2. *Create AI Character*
+   - Create a new Character or Pawn Blueprint (e.g., BP_AICharacter).
+   - Add an AIController Blueprint (e.g., BP_AIController) and assign it to your AI character.
+
+3. *Set Up Behavior Tree*
+   - Create a Behavior Tree (e.g., BT_RandomRoam) and a corresponding Blackboard.
+   - Add a Blackboard Key (e.g., TargetLocation) of type Vector.
+
+4. *Implement Roaming Logic*
+   - In the Behavior Tree, use the following structure:
+     - *Root* ➝ *Selector*
+       - *Sequence*
+         - Find Random Location (custom task to set TargetLocation)
+         - Move To node (uses TargetLocation)
+   - Create a custom BTTask Blueprint for finding a random location using UNavigationSystemV1::GetRandomPointInNavigableRadius.
+
+5. *Place and Test*
+   - Place your AI character in the level.
+   - Assign the AI Controller and Behavior Tree.
+   - Play the scene and observe the AI roaming randomly.
+
+
+
+## Output
+
+
+![Screenshot 2025-05-08 221444](https://github.com/user-attachments/assets/2bfed4fb-8a19-47e9-9b7f-23fbc1cee889)
+
+
+
+![image](https://github.com/user-attachments/assets/286ac6c8-e8a1-4d75-b03f-c5bc78b75f17)
+
+
+
+![image](https://github.com/user-attachments/assets/792fcfa6-da04-4187-9ea6-fa756a158de6)
+
+
+
+![image](https://github.com/user-attachments/assets/479bd6be-0a5a-43cc-8d44-b5be25f5ee0e)
+
+
+![image](https://github.com/user-attachments/assets/ce3e04b6-4581-4669-8225-01837f12f8f5)
+
+
+
+## Result
+The AI character successfully roams within the defined NavMesh area, choosing random destinations at intervals using the Behavior Tree logic.
